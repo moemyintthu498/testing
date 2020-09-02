@@ -1,0 +1,141 @@
+///Main Functions
+
+-Item Mangement
+     -Brand/Category/Subcategory
+
+-Sell/Shopping
+
+-Order Management
+     -items/customer
+
+-Customer Manage 
+	-Reports 
+
+-orders
+  -voucherid,user_id,orderdate,status
+
+-order_details
+   -voucherid,product_id,qty
+
+-brands
+=>1 | b1 | photo
+
+-categories
+=>1 | fashion | photo
+
+-subcategories
+=>1 | baby wear |1  
+
+-os_laravel
+
+Model Relationship
+------------------
+
+-one -to -one 
+    -hasOne(p)
+    -belongsTo(c)
+
+-one-to-many
+	-hasMany(p)
+	-belongsTo(c)
+
+-many-to-many
+	-belongsToMany
+	-pivot table
+
+
+  -Homework(using backend template)<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateSubcategoriesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('subcategories', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->string('name');
+            $table->unsignedBigInteger('category_id');
+            $table->timestamps();
+            $table->foreign('category_id')
+                    ->references('id')
+                    ->on('categories')
+                    ->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('subcategories');
+    }
+}
+-Homework(using backend template)
+------------
+    -create route for dashboard page (get)
+    -create master blade(views/backendtemplat.blade.php)
+    -create child blade(views/backend/dashboard.blade.php)
+    -create controller BackendController
+       -create method dashboard
+       -call view (backend.dashboard)
+
+
+-Item(CRUD)
+-----------
+create-show form,store data
+retrieve-display data(all,row)
+update-show form with old value,update data
+delete-delete data
+
+
+Authentication
+---------------
+-Installtion
+  -node.js(call npm in terming)
+-Docs
+  -Security /Authentication
+-Commands
+  -composer require laravel/ui
+  -php artisan ui bootstrap --auth
+  -npm install
+  -npm run dev
+-Routes
+  -localhost:8000/login
+  -localhost:8000/register
+
+Spatie
+------
+   -composer require(3)
+   -public (5)
+   -php artisan migrate
+   -create new seeder class (RoleTableSeeder)
+   -seed this class
+   -User model->use HasRoles
+   -app/Http/Controller/Auth/RegisterController
+      -create method ->assignRole
+   -Register middleware (app/Http/kernel.php
+   routeMiddelware)
+   -routes/web.php
+      -roel:Admin
+
+
+GIT
+---
+
+-git init
+-git add
+-git commit -m "message"
+-git remote add origin url
+-git push -u origin master 
