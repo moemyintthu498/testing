@@ -36,9 +36,14 @@
 						<td>{{$item->name}}</td>
 						<td>{{$item->price}}</td>
 						<td>
-							<a href="" class="btn btn-info">Detail</a>
+							<a href="{{route('items.show',$item->id)}}" class="btn btn-info">Detail</a>
 							<a href="{{route('items.edit',$item->id)}}" class="btn btn-warning">Edit</a>
-							<a href="" class="btn btn-danger">Delete</a>
+							
+							<form method="post" action="{{route('items.destroy',$item->id)}}" onsubmit="return confirm('Are you sure?')" class="d-inline-block">
+								@csrf
+								@method('DELETE')
+								<input type="submit" class="btn btn-danger" value="Delete">
+							</form>
 						</td>
 					</tr>
 					@endforeach

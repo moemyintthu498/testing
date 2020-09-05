@@ -10,6 +10,7 @@
 	<div class="container mt-5">
 		
 		<!-- Shopping Cart Div -->
+		<section class="shoppingcart">
 		<div class="row mt-5 shoppingcart_div">
 			<div class="col-12">
 				<a href="{{route('homepage')}}" class="btn mainfullbtncolor btn-secondary float-right px-3" > 
@@ -34,13 +35,13 @@
 						
 
 					</tbody>
-					<tfoot >
+					<tfoot id="shoppingcart_tfoot">
 
-                        <tr>
+                        {{-- <tr>
                             <td colspan="8">
                                 <h3 class="text-right"> Total : $80000Ks </h3>
                             </td>
-                        </tr>
+                        </tr> --}}
 						<tr> 
                             <td colspan="5"> 
                                 <textarea id="notes" class="form-control"  placeholder="Any Request..."></textarea>
@@ -53,7 +54,7 @@
                                     Check Out 
                                 </button>
                                 @else
-                                <a href="{{route('login')}}" class="btn btn-secondary btn-block mainfullbtncolor "> 
+                                <a href="{{route('loginpage')}}" class="btn btn-secondary btn-block mainfullbtncolor "> 
                                     Login To Check Out 
                                 </a>
                                 @endrole
@@ -65,6 +66,7 @@
 				</table>
 			</div>
 		</div>
+	</section>
 
 		<!-- No Shopping Cart Div -->
 		<div class="row mt-5 noneshoppingcart_div text-center">
@@ -74,7 +76,7 @@
 			</div>
 
 			<div class="col-12 mt-5 ">
-				<a href="categories" class="btn btn-secondary mainfullbtncolor px-3" > 
+				<a href="{{route('homepage')}}" class="btn btn-secondary mainfullbtncolor px-3" > 
 					<i class="icofont-shopping-cart"></i>
 					Continue Shopping 
 				</a>

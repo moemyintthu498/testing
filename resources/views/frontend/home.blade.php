@@ -25,77 +25,18 @@
 	<div class="container mt-5 px-5">
 		<!-- Category -->
 		<div class="row">
+			@foreach($categories as $category)
 			<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
 				<div class="card categoryCard border-0 shadow-sm p-3 mb-5 rounded text-center">
-				  	<img src="{{asset('main/image/category/category_one.png')}}" class="card-img-top" alt="...">
+				  	<img src="{{asset($category->photo)}}" class="card-img-top" alt="...">
 				  	<div class="card-body">
-				    	<p class="card-text font-weight-bold text-truncate"> Smart Home </p>
+				    	<p class="card-text font-weight-bold text-truncate"> {{$category->name}}</p>
 				  	</div>
 				</div>
 			</div>
+			@endforeach
 
-			<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
-				<div class="card categoryCard border-0 shadow-sm p-3 mb-5 rounded text-center">
-				  	<img src="{{asset('main/image/category/category_two.png')}}" class="card-img-top" alt="...">
-				  	<div class="card-body">
-				    	<p class="card-text font-weight-bold text-truncate"> Grocery </p>
-				  	</div>
-				</div>
-			</div>
-
-			<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
-				<div class="card categoryCard border-0 shadow-sm p-3 mb-5 rounded text-center">
-				  	<img src="{{asset('main/image/category/category_three.png')}}" class="card-img-top" alt="...">
-				  	<div class="card-body">
-				    	<p class="card-text font-weight-bold text-truncate"> Cosmetic </p>
-				  	</div>
-				</div>
-			</div>
-
-			<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
-				<div class="card categoryCard border-0 shadow-sm p-3 mb-5 rounded text-center">
-				  	<img src="{{asset('main/image/category/category_four.png')}}" class="card-img-top" alt="...">
-				  	<div class="card-body">
-				    	<p class="card-text font-weight-bold text-truncate"> Stationery </p>
-				  	</div>
-				</div>
-			</div>
-
-			<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
-				<div class="card categoryCard border-0 shadow-sm p-3 mb-5 rounded text-center">
-				  	<img src="{{asset('main/image/category/category_five.png')}}" class="card-img-top" alt="...">
-				  	<div class="card-body">
-				    	<p class="card-text font-weight-bold text-truncate"> Electronic Devices </p>
-				  	</div>
-				</div>
-			</div>
-
-			<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
-				<div class="card categoryCard border-0 shadow-sm p-3 mb-5 rounded text-center">
-				  	<img src="{{asset('main/image/category/category_six.png')}}" class="card-img-top" alt="...">
-				  	<div class="card-body">
-				    	<p class="card-text font-weight-bold text-truncate"> Furniture </p>
-				  	</div>
-				</div>
-			</div>
-
-			<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
-				<div class="card categoryCard border-0 shadow-sm p-3 mb-5 rounded text-center">
-				  	<img src="{{asset('main/image/category/category_seven.png')}}" class="card-img-top" alt="...">
-				  	<div class="card-body">
-				    	<p class="card-text font-weight-bold text-truncate"> Kitchen Apperience </p>
-				  	</div>
-				</div>
-			</div>
-
-			<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 ">
-				<div class="card categoryCard border-0 shadow-sm p-3 mb-5 rounded text-center">
-				  	<img src="{{asset('main/image/category/category_eight.jpg')}}" class="card-img-top" alt="...">
-				  	<div class="card-body">
-				    	<p class="card-text font-weight-bold text-truncate"> Health Care </p>
-				  	</div>
-				</div>
-			</div>
+			
 		</div>
 
 		<div class="whitespace d-xl-block d-lg-block d-md-none d-sm-none d-none"></div>
@@ -112,16 +53,18 @@
 				<div class="MultiCarousel" data-items="1,3,5,7" data-slide="1" id="MultiCarousel"  data-interval="1000">
 					
 		            <div class="MultiCarousel-inner">
-		            	@foreach($items as $item)
+		            	@foreach($discountItems as $item)
 		                <div class="item">
+		                	<a href="{{route('itemdetailpage',$item->id)}}">
 		                    <div class="pad15">
 		                    	
 		                    	<img src="{{$item->photo}}" class="img-fluid">
 		                    	
-		                        <p class="text-truncate">Multi Item Carousel</p>
+		                        <p class="text-truncate">{{$item->name}}</p>
 		                        <p class="item-price">
-		                        	
-		                        	<span class="d-block">{{$item->price}}Ks</span>
+		                        	@php $discount=$item->price-($item->price*($item->discount/100)) @endphp
+					            		<span class="d-block">Ks{{number_format($discount)}}</span> 
+					            		<small><strike class="mr-2">{{number_format($item->price)}}Ks</strike> -{{$item->discount}}%</small>
 		                        </p>
 
 		                        <div class="star-rating">
@@ -136,7 +79,13 @@
 
 
 
-								<button class="btn btn-info add_to_cart"
+								
+
+
+
+		                    </div>
+		                </a>
+		                <button class="btn btn-info add_to_cart"
 								data-id="{{$item->id}}"
 								data-name="{{$item->name}}"
 								data-price="{{$item->price}}"
@@ -146,10 +95,6 @@
 
 								</button>
 								
-
-
-
-		                    </div>
 		                </div>
 
 		               @endforeach
@@ -174,59 +119,17 @@
 
 	    <!-- Brand Store Item -->
 	    <section class="customer-logos slider mt-5">
+		   @foreach($brands as $brand)
+
 	      	<div class="slide">
-	      		<a href="">
-		      		<img src="{{asset('main/image/brand/loacker_logo.jpg')}}">
+	      		<a href="{{route('brandpage',$brand->id)}}">
+
+		      		<img src="{{asset($brand->photo)}}">
 		      	</a>
 	      	</div>
+	      	@endforeach
 	      	
-	      	<div class="slide">
-	      		<a href="">
-	      			<img src="{{asset('main/image/brand/lockandlock_logo.png')}}">
-	      		</a>
-	      	</div>
 	      	
-	      	<div class="slide">
-	      		<a href="">
-	      			<img src="{{asset('main/image/brand/apple_logo.png')}}">
-	      		</a>
-	      	</div>
-	      	
-	      	<div class="slide">
-	      		<a href="">
-	      			<img src="{{asset('main/image/brand/giordano_logo.png')}}">
-	      		</a>
-	      	</div>
-	      	
-	      	<div class="slide">
-	      		<a href="">
-	      			<img src="{{asset('main/image/brand/saisai_logo.png')}}">
-	      		</a>
-	      	</div>
-	      	
-	      	<div class="slide">
-	      		<a href="">
-	      			<img src="{{asset('main/image/brand/brands_logo.png')}}">
-	      		</a>	
-	      	</div>
-	      	
-	      	<div class="slide">
-	      		<a href="">
-	      			<img src="{{asset('main/image/brand/acer_logo.png')}}">
-	      		</a>
-	      	</div>
-	      	
-	      	<div class="slide">
-	      		<a href="">
-	      			<img src="{{asset('main/image/brand/bella_logo.png')}}">
-	      		</a>
-	      	</div>
-	      	
-	      	<div class="slide">
-	      		<a href="">
-	      			<img src="{{asset('main/image/brand/ariel_logo.png')}}">
-	      		</a>
-	      	</div>
 	   	</section>
 
 	    <div class="whitespace d-xl-block d-lg-block d-md-none d-sm-none d-none"></div>

@@ -84,7 +84,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        return view('backend.items.detail',compact('item'));
     }
 
     /**
@@ -160,6 +160,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+        return redirect()->route('items.index');
     }
 }

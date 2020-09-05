@@ -2,7 +2,7 @@
 @section('content')
 <div class="jumbotron jumbotron-fluid subtitle">
   		<div class="container">
-    		<h1 class="text-center text-white"> Code Number </h1>
+    		<h1 class="text-center text-white"> Code Number: {{$items->codeno}} </h1>
   		</div>
 	</div>
 	
@@ -13,29 +13,29 @@
 		<nav aria-label="breadcrumb ">
 		  	<ol class="breadcrumb bg-transparent">
 		    	<li class="breadcrumb-item">
-		    		<a href="#" class="text-decoration-none secondarycolor"> Home </a>
+		    		<a href="{{route('homepage')}}" class="text-decoration-none secondarycolor"> Home </a>
 		    	</li>
 		    	<li class="breadcrumb-item">
-		    		<a href="#" class="text-decoration-none secondarycolor"> Category </a>
+		    		<a href="{{route('categorypage',$items->subcategory->category->id)}}" class="text-decoration-none secondarycolor"> {{$items->subcategory->category->name}}</a>
 		    	</li>
 		    	<li class="breadcrumb-item">
-		    		<a href="#" class="text-decoration-none secondarycolor"> Category Name </a>
+		    		<a href="{{route('subcategorypage',$items->subcategory->id)}}" class="text-decoration-none secondarycolor">{{$items->subcategory->name}}</a>
 		    	</li>
 		    	<li class="breadcrumb-item active" aria-current="page">
-					Subcategory Name
+					{{$items->name}}
 		    	</li>
 		  	</ol>
 		</nav>
 
 		<div class="row mt-5">
 			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-				<img src="{{asset('main/image/item/saisai_one.jpg')}}" class="img-fluid">
+				<img src="{{asset($items->photo)}}" class="img-fluid">
 			</div>	
 
 
 			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
 				
-				<h4> Item Name </h4>
+				<h4> {{$items->name}} </h4>
 
 				<div class="star-rating">
 					<ul class="list-inline">
@@ -48,28 +48,35 @@
 				</div>
 
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					{{$items->description}}
 				</p>
 
 				<p> 
-					<span class="text-uppercase "> Current Price : </span>
-					<span class="maincolor ml-3 font-weight-bolder"> 180,000 Ks </span>
+					<span class="text-uppercase "> Discount Price : </span>
+					@php $discount=$items->price-($items->price*($items->discount/100)) @endphp
+					 <span class="d-block">Ks{{number_format($discount)}}</span>
 				</p>
+				<p> 
+					<span class="text-uppercase "> Price : </span>
+					
+					 <span class="maincolor ml-3 font-weight-bolder"><del>{{number_format($items->price)}}Ks</del> <small>-{{$items->discount}}%</small></span>
+				</p>
+
 
 				<p> 
 					<span class="text-uppercase "> Brand : </span>
-					<span class="ml-3"> <a href="" class="text-decoration-none text-muted"> Brand Name </a> </span>
+					<span class="ml-3"> <a href="{{route('brandpage',$items->brand->id)}}" class="text-decoration-none text-muted">{{$items->brand->name}}</a> </span>
 				</p>
 
 
-				<a href="#" class="addtocartBtn text-decoration-none">
-					<i class="icofont-shopping-cart mr-2"></i> Add to Cart
-				</a>
+				<button class="addtocartBtn text-decoration-none add_to_cart"   data-id="{{$items->id}}"
+				                data-name="{{$items->name}}"
+								data-price="{{$items->price}}"
+								data-photo="{{$items->photo}}"
+								data-discount="{{$items->discount}}"
+								data-codeno="{{$items->codeno}}" >
+					Add to Cart
+				</button>
 				
 			</div>
 		</div>

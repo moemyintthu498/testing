@@ -53,6 +53,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone'=>['required','string','max:12'],
+            'address'=>['required'],
         ]);
     }
 
@@ -68,8 +70,27 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
+            'address' => $data['address'],
         ]);
         $user->assignRole('Customer');
         return $user;
+    }
+    protected function redirectTo()
+    {
+        # code...
+        $roles=auth()->user()->getRoleNames();
+
+        switch ($roles[0]) {
+            case 'Admin':
+               return 'dashboard';
+            break;
+            case 'Customer':
+               return 'shoppingcart';
+            break;
+            default:
+                return '/';
+            break;
+        }
     }
 }

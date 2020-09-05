@@ -35,9 +35,13 @@
 						<td>{{$subcategory->name}}</td>
 						
 						<td>
-							<a href="" class="btn btn-info">Detail</a>
+							<a href="{{route('subcategories.show',$subcategory->id)}}" class="btn btn-info" class="btn btn-info">Detail</a>
 							<a href="{{route('subcategories.edit',$subcategory->id)}}" class="btn btn-warning">Edit</a>
-							<a href="" class="btn btn-danger">Delete</a>
+							<form method="post" action="{{route('subcategories.destroy',$subcategory->id)}}" onsubmit="return confirm('Are you sure?')" class="d-inline-block">
+								@csrf
+								@method('DELETE')
+								<input type="submit" class="btn btn-danger" value="Delete">
+							</form>
 						</td>
 					</tr>
 					@endforeach

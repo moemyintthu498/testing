@@ -66,7 +66,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('backend.categories.detail',compact('category'));
     }
 
     /**
@@ -124,6 +124,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+         $category->delete();
+        return redirect()->route('categories.index');
     }
 }

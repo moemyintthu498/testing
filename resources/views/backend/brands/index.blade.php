@@ -33,9 +33,13 @@
 						<td>{{$brand->name}}</td>
 						
 						<td>
-							<a href="" class="btn btn-info">Detail</a>
+							<a href="{{route('brands.show',$brand->id)}}" class="btn btn-info">Detail</a>
 							<a href="{{route('brands.edit',$brand->id)}}" class="btn btn-warning">Edit</a>
-							<a href="" class="btn btn-danger">Delete</a>
+							<form method="post" action="{{route('brands.destroy',$brand->id)}}" onsubmit="return confirm('Are you sure?')" class="d-inline-block">
+								@csrf
+								@method('DELETE')
+								<input type="submit" class="btn btn-danger" value="Delete">
+							</form>
 						</td>
 					</tr>
 					@endforeach

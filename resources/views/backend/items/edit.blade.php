@@ -64,20 +64,17 @@
 				<textarea class="form-control" name="description">{{$item->description}}</textarea>
 			</div>
 		</div>
-		@error('brand')
+		{{-- @error('brand')
 		    <div class="alert alert-danger">{{$message}}</div>
-		@enderror
-		<div class="form-group row">
+		@enderror --}}
+		<div class="form-group row {{$errors->has('brand')?'has-error':''}}">
 			<label class="col-sm-2 col-form-label">Brand</label>
 			<div class="col-sm-10">
 				<select class="form-control form-control-md" id="inputBrand" name="brand">
 					<optgroup label="Choose Brand">
 
 						@foreach($brands as $brand)
-
-						
-
-						<option value="{{$brand->id}}" selected="selected">{{$brand->name}}</option>
+                            <option value="{{$brand->id}}" >{{$brand->name}}</option>
 						@endforeach
 
 						{{-- @if (old('brand') == $brand->id)
@@ -108,6 +105,7 @@
 					</optgroup>
 
 				</select>
+				<span class="text-danger">{{$errors->first('brand')}}</span>
 			</div>
 		</div>
 		@error('subcategory')
