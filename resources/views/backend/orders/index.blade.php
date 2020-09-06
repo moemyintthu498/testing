@@ -2,7 +2,9 @@
 @section('content')
 <div class="container">
 	<div class="d-sm-flex align-items-center justify-content-between">
+		<div>
 		<h1 class="h3 mb-0 text-gray-800 ">Order List</h1>
+	</div>
         <form method="get" action="{{route('orders.index')}}" class="mx-2">
         	<div class="form-row">
         		<div class="col">
@@ -31,8 +33,9 @@
 
 			<table class="table table-bordered">
 				<thead class="bg-dark text-white">
-					<tr>
+					<tr><th>No</th>
 						<th>Voucher No</th>
+						<th>Order Date</th>
 						<th>User</th>
 						
 						<th>Total</th>
